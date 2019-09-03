@@ -68,12 +68,15 @@ public class RenameMeResourceTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-        try {
+         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
-            em.persist(new Movie("Some txt","More text"));
-            em.persist(new Movie("aaa","bbb"));
            
+            String[] actors = {"man", "lady","goat"};
+            String[] actorstwo = {"cat", "monkey","zebra"};
+            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
+            em.persist(new Movie(1995, "Some txt", actors));
+            em.persist(new Movie(444, "aaa", actorstwo));
+
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -106,4 +109,14 @@ public class RenameMeResourceTest {
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("count", equalTo(2));   
     }
+    
+//     @Test
+//    public void testGetYear() throws Exception {
+//        given()
+//        .contentType("application/json")
+//        .get("/xxx/year/aaa").then()
+//        .assertThat()
+//        .statusCode(HttpStatus.OK_200.getStatusCode())
+//        .body("year", equalTo(444));   
+//    }
 }

@@ -2,8 +2,13 @@ package facades;
 
 import utils.EMF_Creator;
 import entities.Movie;
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import org.glassfish.grizzly.http.util.HttpStatus;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -96,5 +101,18 @@ public class MovieFacadeTest {
     public void testGetAll() {
         assertEquals(facade.getMoviesCount(), facade.getAll().size());
     }
+    
+//     @Test
+// public void testCount() throws Exception {
+//
+//    when().
+//            get("http://localhost:8080/jpareststarter/api/xxx/all").
+//    then().
+//            statusCode(200).
+//            body("lotto.lottoId", equalTo(5),
+//                 "lotto.winners.winnerId", hasItems(23, 54));
+//
+//
+// }
 
 }

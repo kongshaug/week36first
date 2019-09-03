@@ -65,11 +65,11 @@ public class MovieFacade {
           public int getYear(String name){
         EntityManager em = emf.createEntityManager();
         try{
-            int actors = (int) em.createQuery("SELECT r.year FROM Movie r where r.name = :name")
+            int year = (int) em.createQuery("SELECT r.year FROM Movie r where r.name = :name")
                     .setParameter("name", name)
                     .getSingleResult();
             
-            return actors;
+            return year;
         }finally{  
             em.close();
         }

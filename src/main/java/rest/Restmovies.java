@@ -6,7 +6,9 @@ import dto.MovieDTO;
 import entities.Movie;
 import utils.EMF_Creator;
 import facades.MovieFacade;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -29,6 +31,8 @@ public class Restmovies {
                 EMF_Creator.Strategy.CREATE);
     private static final MovieFacade FACADE =  MovieFacade.getFacadeExample(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    
+    
             
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -57,17 +61,59 @@ public class Restmovies {
         throw new UnsupportedOperationException();
     }
     
-    @GET
     @Path("/all")
+    @GET
     @Consumes({MediaType.APPLICATION_JSON})
     public String AllMovies() {
         
         List<Movie> movies =FACADE.getAll();
-        List<MovieDTO> DTOm = null;
+        List<MovieDTO> DTOm;
+        DTOm = new ArrayList<MovieDTO>();
         for(Movie m : movies)
         {
         DTOm.add(new MovieDTO(m));
         }
         return GSON.toJson(DTOm);
     }
+    // try fx. "NotArealMovie"
+      @Path("/year/{name}")
+    @GET
+    @Consumes({MediaType.APPLICATION_JSON})
+    public String getYear(@PathParam("name")String name) {
+        int i = 0;
+        try
+        {
+       i = FACADE.getYear(name);
+        }finally 
+        {
+            
+        }
+      
+       return "{\"year\":"+i+"}";
+    }
+    
+     @Path("/pop")
+    @GET
+   
+    public String populate() {
+        
+         EntityManager em = EMF.createEntityManager();
+        try {
+            em.getTransaction().begin();
+           
+            String[] actors = {"realman", "reallady","fakegoat"};
+            String[] actorstwo = {"somecat", "Amonkey","somezebra"};
+            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
+            em.persist(new Movie(1995, "NotArealMovie", actors));
+            em.persist(new Movie(444, "someMovie", actorstwo));
+            
+
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return "dude it totally worked";
+    }
+ 
+
 }

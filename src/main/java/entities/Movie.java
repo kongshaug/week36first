@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
-
-
 @Entity
 @NamedQuery(name = "Movie.deleteAllRows", query = "DELETE from Movie")
 public class Movie implements Serializable {
@@ -17,15 +15,18 @@ public class Movie implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-private int year;
-private String name;
-private String[] actors;
+    private int year;
+    private String name;
+    private String[] actors;
 
-public Movie(int year, String name, String[] actors){
-this.year = year;
-this.name = name;
-this.actors = actors;
-}
+    public Movie() {
+    }
+
+    public Movie(int year, String name, String[] actors) {
+        this.year = year;
+        this.name = name;
+        this.actors = actors;
+    }
 
     public int getYear() {
         return year;
@@ -51,11 +52,6 @@ this.actors = actors;
         this.actors = actors;
     }
 
-
-    
-    public Movie() {
-    }
-        
     public Long getId() {
         return id;
     }
@@ -63,7 +59,7 @@ this.actors = actors;
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     // TODO, delete this class, or rename to an Entity class that makes sense for what you are about to do
     // Delete EVERYTHING below if you decide to use this class, it's dummy data used for the initial demo
     private String dummyStr1;
@@ -89,9 +85,5 @@ this.actors = actors;
     public void setDummyStr2(String dummyStr2) {
         this.dummyStr2 = dummyStr2;
     }
-    
-    
-    
 
-   
 }
