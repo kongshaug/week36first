@@ -37,11 +37,38 @@ public class MovieFacade {
     }
     
     //TODO Remove/Change this before use
-    public long getRenameMeCount(){
+    public long getMoviesCount(){
         EntityManager em = emf.createEntityManager();
         try{
             long renameMeCount = (long)em.createQuery("SELECT COUNT(r) FROM Movie r").getSingleResult();
             return renameMeCount;
+        }finally{  
+            em.close();
+        }
+        
+    }
+         public String[] getActors(String name){
+        EntityManager em = emf.createEntityManager();
+        try{
+            String[] actors = (String[])em.createQuery("SELECT r.actors FROM Movie r where r.name = :name")
+                    .setParameter("name", name)
+                    .getSingleResult();
+            
+            return actors;
+        }finally{  
+            em.close();
+        }
+        
+    }
+         
+          public int getYear(String name){
+        EntityManager em = emf.createEntityManager();
+        try{
+            int actors = (int) em.createQuery("SELECT r.year FROM Movie r where r.name = :name")
+                    .setParameter("name", name)
+                    .getSingleResult();
+            
+            return actors;
         }finally{  
             em.close();
         }
