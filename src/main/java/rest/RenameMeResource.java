@@ -2,9 +2,9 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import entities.RenameMe;
+import entities.Movie;
 import utils.EMF_Creator;
-import facades.FacadeExample;
+import facades.MovieFacade;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -25,7 +25,7 @@ public class RenameMeResource {
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
-    private static final FacadeExample FACADE =  FacadeExample.getFacadeExample(EMF);
+    private static final MovieFacade FACADE =  MovieFacade.getFacadeExample(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
             
     @GET
@@ -44,14 +44,14 @@ public class RenameMeResource {
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
-    public void create(RenameMe entity) {
+    public void create(Movie entity) {
         throw new UnsupportedOperationException();
     }
     
     @PUT
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void update(RenameMe entity, @PathParam("id") int id) {
+    public void update(Movie entity, @PathParam("id") int id) {
         throw new UnsupportedOperationException();
     }
 }
