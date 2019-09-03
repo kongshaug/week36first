@@ -91,5 +91,10 @@ public class MovieFacadeTest {
     public void testGetYear() {
         assertEquals(444, facade.getYear("aaa"));
     }
+    
+      @Test
+    public void testGetAll() {
+        assertEquals(facade.getMoviesCount(), facade.getAll().size());
+    }
 
 }

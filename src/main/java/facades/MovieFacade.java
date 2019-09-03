@@ -1,6 +1,7 @@
 package facades;
 
 import entities.Movie;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -69,6 +70,20 @@ public class MovieFacade {
                     .getSingleResult();
             
             return actors;
+        }finally{  
+            em.close();
+        }
+        
+    }
+          
+           public List<Movie> getAll(){
+        EntityManager em = emf.createEntityManager();
+        try{
+            List<Movie> movies;
+            movies = (List<Movie>) em.createQuery("SELECT r FROM Movie r ").getResultList();
+                    
+            
+            return movies;
         }finally{  
             em.close();
         }
